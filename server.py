@@ -52,4 +52,4 @@ def rankboard():
     return HTMLResponse(content=df.to_html(), status_code=200)
 
 if __name__ == "__main__":
-    uvicorn.run(app="server:app",host="127.0.0.1",port=9000,reload=True)
+    uvicorn.run(app="server:app",host="0.0.0.0",port=9000,reload=True)
