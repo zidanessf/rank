@@ -54,9 +54,5 @@ def rankboard():
     df = df.sort_values(by=["通关次数","总用时(min)","道具使用数"],ascending=[False,True,True])
     return HTMLResponse(content=df.to_html(), status_code=200)
 
-@app.get("/login")
-def login():
-    return HTMLResponse(content=, status_code=200)
-
 if __name__ == "__main__":
     uvicorn.run(app="server:app",host="0.0.0.0",port=9000,reload=True)
