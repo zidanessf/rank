@@ -2,14 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Hello world</title>
-    <link rel="stylesheet" href="./flex.css">
-    <style type="text/css">
-
+    <style> 
+      table, th, td{font-size:10pt; border:1px solid black; border-collapse:collapse; text-align:center;}
+      th, td {padding: 5px;}
+      .center{
+          display:table;
+          margin:0 auto;
+      }
     </style>
-</head>
+    </head>
 <body>
-    <div class="box" flex>
+    <div class="center">
         <input class="placeholder" id="txtName" name="s" placeholder="请输入姓名">
         <a href = "javascript:;" onclick = "this.href='http://yanglegeyangsgcc-6fs60yy63b5c323-1309237641.tcloudbaseapp.com/?name=' + document.getElementById('txtName').value" >登入游戏</a>
     </div>

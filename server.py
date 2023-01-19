@@ -59,7 +59,31 @@ def rankboard():
     print(df)
     df = df.sort_values(by=["通关次数","总用时(min)","道具使用数"],ascending=[False,True,True])
     df["排名"] = pd.Series(range(1,len(df)+1),index=df.index)
-    return HTMLResponse(content=df.to_html(), status_code=200)
+    htmlstr =  f'''
+    <html>
+<head>
+<style> 
+  table, th, td{{font-size:10pt; border:1px solid black; border-collapse:collapse; text-align:center;}}
+  th, td {{padding: 5px;}}
+.center{{
+      display:table;
+      margin:0 auto;
+      border:1px solid red;
+  }}
+</style>
+</head>
+<body>
+<div class="center">
+
+{
+  df.to_html()
+}
+</div>
+
+</body>
+</html>
+    '''
+    return HTMLResponse(content=htmlstr, status_code=200)
 
 if __name__ == "__main__":
     uvicorn.run(app="server:app",host="0.0.0.0",port=9000,reload=True)
