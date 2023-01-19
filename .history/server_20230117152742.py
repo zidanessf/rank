@@ -2,13 +2,10 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from datetime import datetime
 from fastapi.responses import HTMLResponse
-from fastapi.staticfiles import StaticFiles
 import pandas as pd
 
 import uvicorn
 app = FastAPI()
-app.mount("/static", StaticFiles(directory="static"), name="static")
-
 from fastapi.middleware.cors import CORSMiddleware
 app.add_middleware(
     CORSMiddleware,
@@ -54,9 +51,5 @@ def rankboard():
     df = df.sort_values(by=["通关次数","总用时(min)","道具使用数"],ascending=[False,True,True])
     return HTMLResponse(content=df.to_html(), status_code=200)
 
-@app.get("/login")
-def login():
-    return HTMLResponse(content=, status_code=200)
-
 if __name__ == "__main__":
-    uvicorn.run(app="server:app",host="0.0.0.0",port=9000,reload=True)
+    uvicorn.run(app="server:app",host="127.0.0.1",port=9000,reload=True)
