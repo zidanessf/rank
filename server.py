@@ -34,11 +34,11 @@ def update_rank():
         for r in f.readlines():
             _,name,used_time,item_remained = r.split("    ")
             if name not in global_record:
-                global_record[name] = {"通关次数":1,"总用时(min)":eval(used_time)/60/1000,"道具使用数":15-eval(item_remained)}
+                global_record[name] = {"通关次数":1,"最短用时(min)":eval(used_time)/60/1000,"道具总使用数":15-eval(item_remained)}
             else:
                 global_record[name]["通关次数"] += 1
-                global_record[name]["总用时(min)"] += eval(used_time)/60/1000
-                global_record[name]["道具使用数"] += 15-eval(item_remained)
+                global_record[name]["最短用时(min)"] = min(global_record[name]["最短用时(min)"],eval(used_time)/60/1000)
+                global_record[name]["道具总使用数"] += 15-eval(item_remained)
     print(pd.DataFrame.from_dict(global_record,orient="index"))
 
 @app.get("/")
@@ -57,7 +57,7 @@ def rankboard():
     update_rank()
     df = pd.DataFrame.from_dict(global_record,orient="index")
     print(df)
-    df = df.sort_values(by=["通关次数","总用时(min)","道具使用数"],ascending=[False,True,True])
+    df = df.sort_values(by=["最短用时(min)","通关次数","道具使用数"],ascending=[True,False,True])
     df["排名"] = pd.Series(range(1,len(df)+1),index=df.index)
     htmlstr =  f'''
     <html>
